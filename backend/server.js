@@ -1,67 +1,60 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-const { Pool } = require("pg");
+const fs = require("fs");
+const path = require("path");
+const { parse } = require("json2csv");
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(bodyParser.json());
+// Middleware
+app.use(cors());  // Allow frontend access
+app.use(express.json()); // Parse JSON requests
 
-// Connect to PostgreSQL
-const pool = new Pool({
-    user: "your_username",
-    host: "localhost",
-    database: "survey_db",
-    password: "your_password",
-    port: 5432
-});
+// Path to CSV file
+const CSV_FILE = path.join(__dirname, "data", "responses.csv");
 
-// Create Table (Run this once)
-pool.query(`
-    CREATE TABLE IF NOT EXISTS responses (
-        id SERIAL PRIMARY KEY,
-        age_band VARCHAR(50),
-        postcode VARCHAR(20),
-        gender VARCHAR(20),
-        coping INTEGER,
-        connected INTEGER,
-        control INTEGER,
-        safe INTEGER,
-        support INTEGER,
-        satisfaction INTEGER,
-        venue INTEGER,
-        welcome INTEGER,
-        accessibility INTEGER,
-        issue TEXT,
-        info INTEGER,
-        outcome INTEGER,
-        recommend INTEGER
-    );
-`, (err, res) => {
-    if (err) console.error("Error creating table:", err);
-    else console.log("Table created or already exists.");
-});
+// Ensure CSV has headers on first run
+const initializeCSV = () => {
+    if (!fs.existsSync(CSV_FILE)) {
+        const headers = [
+            "Timestamp", "Hub Attended", "Date Attended", "Hub Worker", "How Found", 
+            "Age Band", "Postcode", "Gender", "Ethnicity", "Ethnicity Detail", 
+            "Conclusion 1", "Conclusion 2", "Conclusion 3", "Notes", 
+            "Coping", "Connected", "Control", "Safe", "Support", "Satisfaction",
+            "Venue", "Welcome", "Accessibility", "Info", "Outcome", "Recommend", "Issue"
+        ].join(",") + "\n";
+        fs.writeFileSync(CSV_FILE, headers, "utf8");
+    }
+};
+initializeCSV();
 
-// Save Form Data
-app.post("/submit", async (req, res) => {
-    const data = req.body;
+// 📌 Handle form submission
+app.post("/submit", (req, res) => {
     try {
-        await pool.query(`
-            INSERT INTO responses (age_band, postcode, gender, coping, connected, control, safe, support, satisfaction, venue, welcome, accessibility, issue, info, outcome, recommend)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
-        `, [
-            data.ageBand, data.postcode, data.gender,
-            data.coping, data.connected, data.control, data.safe, data.support, data.satisfaction,
-            data.venue, data.welcome, data.accessibility, data.issue,
-            data.info, data.outcome, data.recommend
-        ]);
-        res.json({ success: true, message: "Response saved successfully!" });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: "Error saving data." });
+        const formData = req.body;
+        const newEntry = {
+            Timestamp: new Date().toISOString(),
+            ...formData
+        };
+
+        // Convert JSON to CSV
+        const csvEntry = parse([newEntry], { header: false }) + "\n";
+        
+        // Append to file
+        fs.appendFileSync(CSV_FILE, csvEntry, "utf8");
+
+        res.json({ message: "Form submitted successfully!" });
+    } catch (error) {
+        console.error("Error saving data:", error);
+        res.status(500).json({ message: "Error saving data." });
     }
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// 📌 API to get CSV data (for Power BI import)
+app.get("/data", (req, res) => {
+    res.sendFile(CSV_FILE);
+});
+
+// Start server
+app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
