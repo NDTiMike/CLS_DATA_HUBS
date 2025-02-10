@@ -14,15 +14,15 @@
     "web-vitals": "^2.1.4"
   },
   "homepage": "https://ndtimike.github.io/CLS_DATA_HUBS",
-"scripts": {
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject",
-  "dev": "concurrently \"npm start\" \"cd ../backend && node server.js\"",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
-},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"npm start\" \"cd ../backend && node server.js\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
