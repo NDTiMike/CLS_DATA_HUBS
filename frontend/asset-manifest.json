@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/CLS_DATA_HUBS/static/css/main.12b87a6a.chunk.css",
+    "main.js": "/CLS_DATA_HUBS/static/js/main.c9257f45.chunk.js",
+    "main.js.map": "/CLS_DATA_HUBS/static/js/main.c9257f45.chunk.js.map",
+    "runtime~main.js": "/CLS_DATA_HUBS/static/js/runtime~main.d51dc19f.js",
+    "runtime~main.js.map": "/CLS_DATA_HUBS/static/js/runtime~main.d51dc19f.js.map",
+    "static/css/2.dbb74888.chunk.css": "/CLS_DATA_HUBS/static/css/2.dbb74888.chunk.css",
+    "static/js/2.6cbcee6b.chunk.js": "/CLS_DATA_HUBS/static/js/2.6cbcee6b.chunk.js",
+    "static/js/2.6cbcee6b.chunk.js.map": "/CLS_DATA_HUBS/static/js/2.6cbcee6b.chunk.js.map",
+    "static/js/3.d5f86460.chunk.js": "/CLS_DATA_HUBS/static/js/3.d5f86460.chunk.js",
+    "static/js/3.d5f86460.chunk.js.map": "/CLS_DATA_HUBS/static/js/3.d5f86460.chunk.js.map",
+    "index.html": "/CLS_DATA_HUBS/index.html",
+    "precache-manifest.a5fa180bff2fee7e1efb587c31735de9.js": "/CLS_DATA_HUBS/precache-manifest.a5fa180bff2fee7e1efb587c31735de9.js",
+    "service-worker.js": "/CLS_DATA_HUBS/service-worker.js",
+    "static/css/2.dbb74888.chunk.css.map": "/CLS_DATA_HUBS/static/css/2.dbb74888.chunk.css.map",
+    "static/css/main.12b87a6a.chunk.css.map": "/CLS_DATA_HUBS/static/css/main.12b87a6a.chunk.css.map"
+  }
+}
