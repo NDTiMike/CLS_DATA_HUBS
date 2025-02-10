@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());  // Allow frontend access
+app.use(cors());  // Allow frontend access test
 app.use(express.json()); // Parse JSON requests
 
 // Path to CSV file
