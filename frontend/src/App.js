@@ -84,7 +84,7 @@ const App = () => {
 
     return (
         <div className="container-fluid p-4 text-center" style={{ maxWidth: "1600px" }}>
-            {/* LOGO & TITLE */}
+            {/* LOGO & TITLE TEST*/}
             <div className="d-flex align-items-center justify-content-center mb-4">
                 <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="Logo" style={{ height: "60px", marginRight: "15px" }} />
                 <h2>Community Led Support Hub Attendance Data</h2>
